@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#test{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				background: pink;
+			}
+		</style>
+		
+		
+	</head>
+	<body>
+		<canvas id="test" width="100" height="400"></canvas>
+		
+		
+		
+		<script type="text/javascript">
+			window.onload=function(){
+				var oc=document.getElementById('test');
+				if(oc.getContext){
+					var ctx=oc.getContext('2d');
+					
+					blur3d();
+					function blur3d(){
+						var arr=[];
+						
+					
+						setInterval(function(){
+							
+							var x=Math.random()*400;
+							var y=Math.random()*20+380;
+							var ro=5;
+							var r=Math.ceil(Math.random()*255);
+							var g=Math.ceil(Math.random()*255);
+					 		var b=Math.ceil(Math.random()*255);
+							var a=1;
+							
+							var deg=0;
+							var scale=10;
+							var starX=x;
+							var starY=y;
+							arr.push({
+								x:x,
+								y:y,
+								ro:ro,
+								r:r,
+								g:g,
+								b:b,
+								a:a,
+								deg:deg,
+								scale:scale,
+								starX:starX,
+								starY:starY
+							})
+							
+		
+							
+						},1000/60);
+						
+						
+						
+						
+						setInterval(function(){
+							ctx.clearRect(0,0,oc.width,oc.height);
+							
+							
+							
+							for(var i=0;i<arr.length;i++){
+								ctx.save();
+								ctx.fillStyle="rgba("+arr[i].r+","+arr[i].g+","+arr[i].b+","+arr[i].a+")";
+								ctx.beginPath();
+								ctx.arc(arr[i].x,arr[i].y,arr[i].ro,0,360*Math.PI/180);
+								ctx.fill();					
+								ctx.restore();
+				
+							}
+							
+							for(var i=0;i<arr.length;i++){
+								arr[i].deg+=20;
+								arr[i].x=arr[i].starX+Math.sin(arr[i].deg*Math.PI/180)*arr[i].scale*2;								
+								arr[i].y=arr[i].starY-(arr[i].deg*Math.PI/180)*arr[i].scale;											
+							}							
+						},1000/60)
+				
+					}
+					
+					
+					}
+					
+				
+			}
+			
+			
+			
+			
+			
+		</script>
+		
+		
+		
+		
+	</body>
+</html>
